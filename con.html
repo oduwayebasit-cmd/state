@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>   
+    label {
+        font-size: 20px;
+    }
+
+    input {
+        font-size: 20px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-top: 10px;
+        width: 500px;
+        border: 1px solid #ddd;
+    }
+
+    h2 {
+        font-size: 35px;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 100;
+        color: rgb(133, 131, 131);
+    }
+
+    textarea {
+        width: 500px;
+        height: 120px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .agree-container span {
+        text-decoration: underline;
+    }
+
+    button {
+        width: 500px;
+        padding: 20px;
+        background-color: #a5d6a7;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 20px;
+        cursor: not-allowed;
+        transition: background 0.3s, font-weight 0.3s;
+    }
+
+    button.active {
+        background-color: #4CAF50;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .agree-container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+</style>
+<body>
+
+    <h2>Get in touch</h2>
+    <p>Our friendly team would love to hear from you.</p>
+
+<form id="contactForm">
+    <label for="firstname">First Name</label><br>
+    <input type="text" id="firstname" name="firstname"
+     placeholder="First Name" required>
+ <br><br>  
+
+
+    <label for="lastname">Last Name</label><br>
+    <input type="text" id="lastname" name="lastname"
+     placeholder="Last Name" required>
+   <br><br> 
+
+<form>
+    <label for="email">Email address</label><br>
+    <input type="text" id="email" name="email"
+     placeholder="you@company.com" required>
+ <br>  <br>
+
+
+    <label for="number">Phone number</label><br>
+    <input type="text" id="080" name="080"
+     placeholder="08012345678">
+   <br><br>
+
+
+    <label for="number">Message</label><br>
+    <textarea id="message" name="message"
+     placeholder="Type your message here..."></textarea>
+ <br>
+
+<div class="agree-container">
+   <label for="agree">You agree to our<span> Privacy Policy</span></label><br><br>
+   <input type="checkbox" id="agree">
+ </div><br>
+ 
+    <button type="submit" id="sendBtn">Send Message</button>
+</form> 
+
+<script>
+    const form = document.getElementById('contactForm');
+    const checkbox = document.getElementById('agree');
+    const sendBtn = document.getElementById('sendBtn');
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
+
+    function checkForm() {
+      let allFilled = true;
+      inputs.forEach(input => {
+        if (!input.value.trim()) allFilled = false;
+      });
+
+      if (allFilled && checkbox.checked) {
+        sendBtn.classList.add('active');
+        sendBtn.disabled = false;
+      } else {
+        sendBtn.classList.remove('active');
+        sendBtn.disabled = true;
+      }
+    }
+
+    // listen for input changes and checkbox
+    inputs.forEach(input => input.addEventListener('input', checkForm));
+    checkbox.addEventListener('change', checkForm);
+
+    // prevent submission if conditions not met
+    form.addEventListener('submit', e => {
+      if (!checkbox.checked) {
+        e.preventDefault();
+        alert('Please agree to the Privacy Policy before submitting.');
+      } else {
+        alert('Message sent successfully!');
+      }
+    });
+
+    // initially disabled
+    sendBtn.disabled = true;
+  </script>
+</body>
+</html>
